@@ -1,0 +1,33 @@
+// Add getCommandManager method
+CommandManager* DietManager::getCommandManager() {
+    return &commandManager;
+}
+
+// Replace undoLastCommand with undo
+bool DietManager::undo() {
+    if (!isUserLoggedIn()) {
+        std::cerr << "Error: User not logged in" << std::endl;
+        return false;
+    }
+    
+    return commandManager.undo();
+}
+
+// Add redo method
+bool DietManager::redo() {
+    if (!isUserLoggedIn()) {
+        std::cerr << "Error: User not logged in" << std::endl;
+        return false;
+    }
+    
+    return commandManager.redo();
+}
+
+bool DietManager::canUndo() const {
+    return isUserLoggedIn() && commandManager.canUndo();
+}
+
+// Add canRedo method
+bool DietManager::canRedo() const {
+    return isUserLoggedIn() && commandManager.canRedo();
+}
